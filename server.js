@@ -61,22 +61,47 @@ app.post("/login", (req, res) => {
             return res.status(401).json({ error: "Invalid password" });
         }
 
-        const token = jwt.sign(
+        const accessToken = jwt.sign(
             {
                 id: user.id,
                 username: user.username,
                 email: user.email,
-                role: user.role,
-                fullName: user.full_name,
-                createdAt: user.created_at,
-                profileImage: user.profile_image,
-                permissions: JSON.parse(user.permissions || "[]")
+                role: user.role
             },
             SECRET_KEY,
             { expiresIn: "1h" }
         );
 
-        res.json({ token });
+        const refreshToken = jwt.sign(
+            { id: user.id },
+            SECRET_KEY,
+            { expiresIn: "7d" } // Refresh token lasts 7 days
+        );
+
+        res.json({ accessToken, refreshToken });
+    });
+});
+
+app.post("/refresh-token", (req, res) => {
+    const { refreshToken } = req.body;
+
+    if (!refreshToken) {
+        return res.status(403).json({ error: "No refresh token provided" });
+    }
+
+    jwt.verify(refreshToken, SECRET_KEY, (err, decoded) => {
+        if (err) {
+            return res.status(403).json({ error: "Invalid refresh token" });
+        }
+
+        // Issue new access token
+        const newAccessToken = jwt.sign(
+            { id: decoded.id },
+            SECRET_KEY,
+            { expiresIn: "1h" }
+        );
+
+        res.json({ accessToken: newAccessToken });
     });
 });
 
