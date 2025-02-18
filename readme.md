@@ -24,5 +24,13 @@ curl -X POST http://localhost:3000/login \
 ### Get user details
 ```
 curl -X GET http://localhost:3000/user \
-     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiY3JlYXRlZEF0IjoiMjAyNS0wMi0xOCAwNjozNTowNSIsInByb2ZpbGVJbWFnZSI6Imh0dHBzOi8vZXhhbXBsZS5jb20vcHJvZmlsZS5qcGciLCJwZXJtaXNzaW9ucyI6WyJyZWFkIiwid3JpdGUiLCJkZWxldGUiXSwiaWF0IjoxNzM5ODYwNTg3LCJleHAiOjE3Mzk4NjQxODd9.arPucIiHa-fvn2EA9HeyUoV6xcPqO6EW0JluWIfvFf8"
+     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJ0ZXN0dXNlciIsImVtYWlsIjoidGVzdHVzZXJAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mzk4NjY4ODQsImV4cCI6MTczOTg3MDQ4NH0.lRNj_zgW2vBYdeBs2OkrN-UHCwGMVFWZqpwO_a7S1xs"
+```
+
+### Get refresh-token
+```
+curl -X POST http://localhost:3000/refresh-token \
+     -H "Content-Type: application/json" \
+     -d '{ "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzM5ODY2NzE1LCJleHAiOjE3NDA0NzE1MTV9.ub9yS5qGuhV6Hox8EdaKDapNjaqzdEQHEvaQ_Hesg2Q" }'
+
 ```
